@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="c8vm"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/urain39/CLionProjects/c8vm"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/urain39/CLionProjects/c8vm"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/urain39/CLionProjects/c8vm"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="c8vm">
+				<Option output="/home/urain39/CLionProjects/c8vm/c8vm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/urain39/CLionProjects/c8vm"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 c8vm"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="c8vm/fast">
+				<Option output="/home/urain39/CLionProjects/c8vm/c8vm" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/urain39/CLionProjects/c8vm"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 c8vm/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/urain39/CLionProjects/c8vm/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/urain39/CLionProjects/c8vm/c8vm.c">
+			<Option target="c8vm"/>
+		</Unit>
+		<Unit filename="/home/urain39/CLionProjects/c8vm/c8vm.h">
+			<Option target="c8vm"/>
+		</Unit>
+		<Unit filename="/home/urain39/CLionProjects/c8vm/cpu.c">
+			<Option target="c8vm"/>
+		</Unit>
+		<Unit filename="/home/urain39/CLionProjects/c8vm/cpu.h">
+			<Option target="c8vm"/>
+		</Unit>
+		<Unit filename="/home/urain39/CLionProjects/c8vm/mem.c">
+			<Option target="c8vm"/>
+		</Unit>
+		<Unit filename="/home/urain39/CLionProjects/c8vm/mem.h">
+			<Option target="c8vm"/>
+		</Unit>
+		<Unit filename="/home/urain39/CLionProjects/c8vm/rom.c">
+			<Option target="c8vm"/>
+		</Unit>
+		<Unit filename="/home/urain39/CLionProjects/c8vm/rom.h">
+			<Option target="c8vm"/>
+		</Unit>
+		<Unit filename="/home/urain39/CLionProjects/c8vm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

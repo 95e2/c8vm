@@ -50,3 +50,12 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# C8VM Project
+c8vm
+cmake-build-debug/
+CMakeFiles/
+cmake_install.cmake
+CMakeCache.txt
+Makefile
+.idea
