@@ -18,8 +18,8 @@ do { \
 #define DEBUG(fmt, ...)
 #endif
 
-static cpu_t cpu;
-static mem_t mem[MEM_SIZE];
+cpu_t cpu;
+mem_t mem[MEM_SIZE];
 
 int main(int argc, char **argv)
 {
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
         exit(USAGE_ERROR);
     }
 
-    if ( load_rom(mem, argv[1]) == false ) {
+    if ( load_rom(&mem, argv[1]) == false ) {
         fprintf(stderr, "Error: cannot open '%s'\n", argv[1]);
     }
 

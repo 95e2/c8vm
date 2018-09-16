@@ -11,4 +11,7 @@
 #define RUN_ERROR   4
 #define USAGE_ERROR 5
 
+#include "cpu.h"
+#include "mem.h"
+
 #endif //C8VM_ERROR_H

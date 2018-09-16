@@ -7,12 +7,14 @@
 
 #include <stdint.h>
 
-#define ROM_BEGIN 0x8000
-#define ROM_MAXSIZE 0x7000
-#define DISPLAY_BEGIN 0xFC00
-#define MEM_SIZE 0x10000
+#define MEM_SIZE        0x10000
+#define ROM_BEGIN       0x8000
+#define STACK_BEGIN     0x6000
+#define ROM_MAXSIZE     0x7000
+#define DISPLAY_BEGIN   0xFC00
 
-typedef int8_t mem_t;
+
+typedef uint8_t mem_t;
 
 void mem_init(mem_t *mem);
 

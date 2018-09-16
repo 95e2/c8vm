@@ -12,8 +12,8 @@ typedef struct cpu_t {
     bool active;
     uint8_t  rx; // x寄存器
     uint8_t  ry; // y寄存器
-    uint8_t  sp; // 栈指针
     uint8_t  ps; // 状态寄存器
+    uint16_t sp; // 栈指针
     uint16_t pc; // 程序计数器
 } cpu_t;
 
