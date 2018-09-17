@@ -2,6 +2,7 @@
 // Created by urain39 on 18-9-16.
 //
 
+#include <zconf.h>
 #include "cpu.h"
 #include "mem.h"
 #include "c8vm.h"
@@ -36,15 +37,17 @@ void i00() {
     // NOP, Do Nothing.
 }
 
+/* 基础跳转操作指令 */
+
 void i01() {
-    // JMP
+    // JMP, ABS
     uint8_t low = mem[cpu.pc];
     uint8_t high = mem[++cpu.pc];
     cpu.pc = (high << 8) + low;
 }
 
 void i02() {
-    // JSR
+    // JSR, ABS
     uint8_t low = mem[cpu.pc];
     uint8_t high = mem[++cpu.pc];
     mem[STACK_BEGIN + cpu.sp] = (uint8_t)(cpu.pc >> 8);
@@ -53,11 +56,14 @@ void i02() {
 }
 
 void i03() {
-    // RTS
+    // RTS, ABS?
     uint8_t low = mem[STACK_BEGIN + cpu.sp];
     uint8_t high = mem[STACK_BEGIN + --cpu.sp];
     cpu.pc = (high << 8) + low;
 }
+
+
+/* 基础读取指令 */
 
 void i04() {
     // LDX, IMM
@@ -69,12 +75,37 @@ void i05() {
     cpu.ry = mem[++cpu.pc];
 }
 
+void i06() {
+    // LDX, ABS
+    uint8_t low = mem[cpu.pc];
+    uint8_t high = mem[++cpu.pc];
+    cpu.rx = mem[(high << 8) + low];
+}
+
+void i07() {
+    // LDY, ABS
+    uint8_t low = mem[cpu.pc];
+    uint8_t high = mem[++cpu.pc];
+    cpu.ry = mem[(high << 8) + low];
+}
+
+void i08() {
+    //
+}
+
+
 void cpu_run()
 {
-    uint8_t opcode = mem[cpu.pc++];
 
+    void (*instruction[256])() = {
+	    i00, i01, i02, i03, i04, i06,
+            i07, i08,
+    };
+
+    uint8_t opcode = mem[cpu.pc++];
     while (cpu.active) {
-        cpu.pc++;
+
+        cpu.pc++; // 执行完始终指向下一条指令
     }
 }
 
