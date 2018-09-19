@@ -9,7 +9,12 @@
 #include "c8vm.h"
 
 extern cpu_t cpu;
-extern mem_t *mem;
+
+/*
+ * 注意：写成extern mem_t *mem;
+ * 会报错，应该是编译器理解的不一样
+ */
+extern mem_t mem[];
 
 void cpu_init(cpu_t *cpu)
 {
@@ -26,24 +31,27 @@ void cpu_init(cpu_t *cpu)
  * 此外对于模拟CPU来说不使用switch可能效率会有很大提升。
  */
 
+/* 函数共享静态变量 */
+static uint8_t low = 0;
+static uint8_t high = 0;
+static uint8_t zp_addr = 0;
 
 void i00() {
     // NOP, Do Nothing.
 }
 
 /* 基础跳转操作指令 */
-
 void i01() {
     // JMP, ABS
-    uint8_t low = mem[++cpu.pc];
-    uint8_t high = mem[++cpu.pc];
+    low = mem[++cpu.pc];
+    high = mem[++cpu.pc];
     cpu.pc = (high << 8) + low;
 }
 
 void i02() {
     // JSR, ABS
-    uint8_t low = mem[++cpu.pc];
-    uint8_t high = mem[++cpu.pc];
+    low = mem[++cpu.pc];
+    high = mem[++cpu.pc];
     PUSH_PC_TO_STACK(cpu, mem);
     cpu.pc = (high << 8) + low;
 }
@@ -54,7 +62,6 @@ void i03() {
 }
 
 /* 基础读取指令 */
-
 void i04() {
     // LDX, IMM
     cpu.rx = mem[++cpu.pc];
@@ -67,58 +74,57 @@ void i05() {
 
 void i06() {
     // LDX, ZP
-    uint8_t zp_addr = mem[++cpu.pc];
+    zp_addr = mem[++cpu.pc];
     cpu.rx = mem[zp_addr];
 }
 
 void i07() {
     // LDX, ZP
-    uint8_t zp_addr = mem[++cpu.pc];
+    zp_addr = mem[++cpu.pc];
     cpu.ry = mem[zp_addr];
 }
 
 void i08() {
     // LDX, ABS
-    uint8_t low = mem[++cpu.pc];
-    uint8_t high = mem[++cpu.pc];
+    low = mem[++cpu.pc];
+    high = mem[++cpu.pc];
     cpu.ry = mem[(high << 8) + low];
 }
 
 void i09() {
     // LDY, ABS
-    uint8_t low = mem[++cpu.pc];
-    uint8_t high = mem[++cpu.pc];
+    low = mem[++cpu.pc];
+    high = mem[++cpu.pc];
     cpu.ry = mem[(high << 8) + low];
 }
 
 void i0a() {
     // STX, ZP
-    uint8_t zp_addr = mem[++cpu.pc];
+    zp_addr = mem[++cpu.pc];
     mem[zp_addr] = cpu.rx;
 }
 
 void i0b() {
     // STY, ZP
-    uint8_t zp_addr = mem[++cpu.pc];
+    zp_addr = mem[++cpu.pc];
     mem[zp_addr] = cpu.ry;
 }
 
 void i0c() {
     // STX, ABS
-    uint8_t low = mem[++cpu.pc];
-    uint8_t high = mem[++cpu.pc];
+    low = mem[++cpu.pc];
+    high = mem[++cpu.pc];
     mem[(high << 8) + low] = cpu.rx;
 }
 
 void i0d() {
     // STY, ABS
-    uint8_t low = mem[++cpu.pc];
-    uint8_t high = mem[++cpu.pc];
+    low = mem[++cpu.pc];
+    high = mem[++cpu.pc];
     mem[(high << 8) + low] = cpu.ry;
 }
 
 /* 基础比较操作指令 */
-
 void i0e() {
     // CMP, IMM, ZP
 }
@@ -150,8 +156,8 @@ void cpu_run()
         // 理论上效率比switch好很多
         opcode = mem[cpu.pc];
         DEBUG("地址： 0x%X\n", cpu.pc);
-        DEBUG("指令： %d\n", opcode);
-        //instruction[opcode]();
+        DEBUG("指令： 0x%X\n", opcode);
+        instruction[opcode]();
         ++cpu.pc; // 执行完始终指向下一条指令
     }
 }

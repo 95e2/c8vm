@@ -21,8 +21,8 @@ do { \
 
 #define  POP_PC_FROM_STACK(cpu, mem) \
 do { \
-    uint8_t low = mem[STACK_BEGIN + cpu.sp]; \
-    uint8_t high = mem[STACK_BEGIN + ++cpu.sp]; \
+    low = mem[STACK_BEGIN + cpu.sp]; \
+    high = mem[STACK_BEGIN + --cpu.sp]; \
     cpu.pc = (high << 8) + low; \
 } while (0);
 
