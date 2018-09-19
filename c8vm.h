@@ -14,4 +14,13 @@
 #include "cpu.h"
 #include "mem.h"
 
+#ifdef _DEBUG
+#define DEBUG(fmt, ...) \
+do { \
+    printf(fmt, __VA_ARGS__); \
+} while(0);
+#else
+#define DEBUG(fmt, ...)
+#endif
+
 #endif //C8VM_ERROR_H

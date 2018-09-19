@@ -25,7 +25,7 @@ bool check_rom(rom_header_t *header)
     return true;
 }
 
-bool load_rom(const mem_t *mem, const char *filename)
+bool load_rom(mem_t *mem, const char *filename)
 {
     FILE *fp = NULL;
     if ( (fp = fopen(filename, "r")) == NULL) {

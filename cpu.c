@@ -2,15 +2,11 @@
 // Created by urain39 on 18-9-16.
 //
 
-#include <zconf.h>
+#include <stdio.h>
+
 #include "cpu.h"
 #include "mem.h"
 #include "c8vm.h"
-
-#define CF (1<<0)
-#define EF (1<<1)
-#define VF (1<<2)
-#define ZF (1<<7)
 
 extern cpu_t cpu;
 extern mem_t *mem;
@@ -27,9 +23,7 @@ void cpu_init(cpu_t *cpu)
 
 /**
  * 个人认为在函数里不加参数可以减少参数传递从而提升运行效率。
- * 此外对于模拟CPU来说可能不使用switch可能效率会有很大提升。
- *
- * 同时因为零页寻址与相对寻址有很大区别，所以统一为绝对寻址。
+ * 此外对于模拟CPU来说不使用switch可能效率会有很大提升。
  */
 
 
@@ -41,27 +35,23 @@ void i00() {
 
 void i01() {
     // JMP, ABS
-    uint8_t low = mem[cpu.pc];
+    uint8_t low = mem[++cpu.pc];
     uint8_t high = mem[++cpu.pc];
     cpu.pc = (high << 8) + low;
 }
 
 void i02() {
     // JSR, ABS
-    uint8_t low = mem[cpu.pc];
+    uint8_t low = mem[++cpu.pc];
     uint8_t high = mem[++cpu.pc];
-    mem[STACK_BEGIN + cpu.sp] = (uint8_t)(cpu.pc >> 8);
-    mem[STACK_BEGIN + ++cpu.sp] = (uint8_t)(cpu.pc & 0x00FF);
+    PUSH_PC_TO_STACK(cpu, mem);
     cpu.pc = (high << 8) + low;
 }
 
 void i03() {
-    // RTS, ABS?
-    uint8_t low = mem[STACK_BEGIN + cpu.sp];
-    uint8_t high = mem[STACK_BEGIN + --cpu.sp];
-    cpu.pc = (high << 8) + low;
+    // RTS, IMM
+    POP_PC_FROM_STACK(cpu, mem);
 }
-
 
 /* 基础读取指令 */
 
@@ -76,35 +66,89 @@ void i05() {
 }
 
 void i06() {
-    // LDX, ABS
-    uint8_t low = mem[cpu.pc];
-    uint8_t high = mem[++cpu.pc];
-    cpu.rx = mem[(high << 8) + low];
+    // LDX, ZP
+    uint8_t zp_addr = mem[++cpu.pc];
+    cpu.rx = mem[zp_addr];
 }
 
 void i07() {
-    // LDY, ABS
-    uint8_t low = mem[cpu.pc];
+    // LDX, ZP
+    uint8_t zp_addr = mem[++cpu.pc];
+    cpu.ry = mem[zp_addr];
+}
+
+void i08() {
+    // LDX, ABS
+    uint8_t low = mem[++cpu.pc];
     uint8_t high = mem[++cpu.pc];
     cpu.ry = mem[(high << 8) + low];
 }
 
-void i08() {
-    //
+void i09() {
+    // LDY, ABS
+    uint8_t low = mem[++cpu.pc];
+    uint8_t high = mem[++cpu.pc];
+    cpu.ry = mem[(high << 8) + low];
 }
 
+void i0a() {
+    // STX, ZP
+    uint8_t zp_addr = mem[++cpu.pc];
+    mem[zp_addr] = cpu.rx;
+}
+
+void i0b() {
+    // STY, ZP
+    uint8_t zp_addr = mem[++cpu.pc];
+    mem[zp_addr] = cpu.ry;
+}
+
+void i0c() {
+    // STX, ABS
+    uint8_t low = mem[++cpu.pc];
+    uint8_t high = mem[++cpu.pc];
+    mem[(high << 8) + low] = cpu.rx;
+}
+
+void i0d() {
+    // STY, ABS
+    uint8_t low = mem[++cpu.pc];
+    uint8_t high = mem[++cpu.pc];
+    mem[(high << 8) + low] = cpu.ry;
+}
+
+/* 基础比较操作指令 */
+
+void i0e() {
+    // CMP, IMM, ZP
+}
+
+void i0f() {
+    // CMP, IMM, ABS
+}
+
+void i10() {
+    // CMP, 保留
+}
+
+void i11() {
+    // CMP, 保留
+}
 
 void cpu_run()
 {
 
     void (*instruction[256])() = {
-	    i00, i01, i02, i03, i04, i06,
-            i07, i08,
+            i00, i01, i02, i03, i04, i05,
+            i06, i07, i08, i09, i0a, i0b,
+            i0c, i0d, i0e, i0f, i10, i11,
     };
 
-    uint8_t opcode = mem[cpu.pc++];
     while (cpu.active) {
-
+        // 理论上效率比switch好很多
+        uint8_t opcode = mem[cpu.pc];
+        DEBUG("指令： '0x%X'\n", opcode);
+        instruction[opcode]();
         cpu.pc++; // 执行完始终指向下一条指令
     }
 }
@@ -113,4 +157,3 @@ void shutdown()
 {
     cpu.active = false;
 }
-

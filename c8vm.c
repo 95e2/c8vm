@@ -9,15 +9,6 @@
 #include "rom.h"
 #include "c8vm.h"
 
-#ifdef _DEBUG
-#define DEBUG(fmt, ...) \
-do { \
-    printf(fmt, __VA_ARGS__); \
-} while(0);
-#else
-#define DEBUG(fmt, ...)
-#endif
-
 cpu_t cpu;
 mem_t mem[MEM_SIZE];
 
@@ -26,7 +17,7 @@ int main(int argc, char **argv)
     cpu_init(&cpu);
     DEBUG("CPU初始化完毕\n", NULL)
 
-    mem_init(&mem); // 忽略这里的警告
+    mem_init(mem); // 忽略这里的警告
     DEBUG("内存初始化完毕\n", NULL)
 
     if (argc < 2) {
@@ -34,8 +25,8 @@ int main(int argc, char **argv)
         exit(USAGE_ERROR);
     }
 
-    if ( load_rom(&mem, argv[1]) == false ) {
+    if ( load_rom(mem, argv[1]) == false ) {
         fprintf(stderr, "Error: cannot open '%s'\n", argv[1]);
     }
-
+    cpu_run();
 }

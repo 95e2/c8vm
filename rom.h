@@ -19,6 +19,6 @@ typedef struct rom_header_t {
 } rom_header_t;
 
 bool check_rom(rom_header_t *header);
-bool load_rom(const mem_t *mem, const char *filename);
+bool load_rom(mem_t *mem, const char *filename);
 
 #endif //C8VM_ROM_H
