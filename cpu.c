@@ -137,19 +137,22 @@ void i11() {
 
 void cpu_run()
 {
-
+    uint8_t opcode = 0x00; // NOP
     void (*instruction[256])() = {
             i00, i01, i02, i03, i04, i05,
             i06, i07, i08, i09, i0a, i0b,
             i0c, i0d, i0e, i0f, i10, i11,
     };
 
+    DEBUG("CPU开始执行\n", NULL);
+
     while (cpu.active) {
         // 理论上效率比switch好很多
-        uint8_t opcode = mem[cpu.pc];
-        DEBUG("指令： '0x%X'\n", opcode);
-        instruction[opcode]();
-        cpu.pc++; // 执行完始终指向下一条指令
+        opcode = mem[cpu.pc];
+        DEBUG("地址： 0x%X\n", cpu.pc);
+        DEBUG("指令： %d\n", opcode);
+        //instruction[opcode]();
+        ++cpu.pc; // 执行完始终指向下一条指令
     }
 }
 

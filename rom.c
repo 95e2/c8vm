@@ -17,7 +17,7 @@ bool check_rom(rom_header_t *header)
     }
 
     if ( header->version < ROM_VERSION ) {
-        fprintf(stderr, "Error: rom version too old!\n");
+        fprintf(stderr, "Error: rom version is too old!\n");
         fprintf(stderr, "Current ROM Version: %d\n", header->version);
         return false;
     }
@@ -29,7 +29,6 @@ bool load_rom(mem_t *mem, const char *filename)
 {
     FILE *fp = NULL;
     if ( (fp = fopen(filename, "r")) == NULL) {
-        fprintf(stderr, "Error: cannot open file '%s'\n", filename);
         return false;
     }
 
@@ -38,13 +37,13 @@ bool load_rom(mem_t *mem, const char *filename)
 
     if ( check_rom(&header_buf) == false) {
         fclose(fp);
-        exit(ROM_ERROR);
+        return false;
     }
 
     // 将ROM数据加载到内存
     if ( fread((void *)&mem[ROM_BEGIN], ROM_MAXSIZE, 1, fp) == 0) {
         fclose(fp);
-        exit(ROM_ERROR);
+        return false;
     }
     fclose(fp);
 
