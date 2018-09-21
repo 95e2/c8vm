@@ -16,14 +16,14 @@ extern cpu_t cpu;
  */
 extern mem_t mem[];
 
-void cpu_init(cpu_t *cpu)
+void cpu_init(void)
 {
-    cpu->active = true;
-    cpu->rx = 0x00;
-    cpu->ry = 0x00;
-    cpu->sp = 0x00;
-    cpu->ps = 0x00;
-    cpu->pc = ROM_BEGIN;
+    cpu.active = true;
+    cpu.rx = 0x00;
+    cpu.ry = 0x00;
+    cpu.sp = 0x00;
+    cpu.ps = 0x00;
+    cpu.pc = ROM_BEGIN;
 }
 
 /**
@@ -141,7 +141,7 @@ void i11() {
     // CMP, 保留
 }
 
-void cpu_run()
+void cpu_run(void)
 {
     uint8_t opcode = 0x00; // NOP
     void (*instruction[256])() = {
@@ -162,7 +162,7 @@ void cpu_run()
     }
 }
 
-void shutdown()
+void shutdown(void)
 {
     cpu.active = false;
 }

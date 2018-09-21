@@ -4,7 +4,9 @@
 
 #include "mem.h"
 
-void mem_init(mem_t *mem)
+extern mem_t mem[];
+
+void mem_init(void)
 {
     unsigned int i = 0;
     for (; i < ROM_BEGIN; i++)

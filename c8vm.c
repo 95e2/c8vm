@@ -14,10 +14,10 @@ mem_t mem[MEM_SIZE];
 
 int main(int argc, char **argv)
 {
-    cpu_init(&cpu);
+    cpu_init();
     DEBUG("CPU初始化完毕\n", NULL)
 
-    mem_init(mem); // 忽略这里的警告
+    mem_init();
     DEBUG("内存初始化完毕\n", NULL)
 
 #ifndef _DEBUG
