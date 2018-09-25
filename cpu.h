@@ -22,6 +22,14 @@ typedef struct cpu_t {
     uint16_t pc; // 程序计数器
 } cpu_t;
 
+#include "mem.h"
+
+#ifndef INTR_NUM
+    #define INTR_NUM 16
+#endif //INTR_NUM
+
+#define GET_INTR_SIZE(INTR_NUM) (BIOS_SIZE / INTR_NUM)
+
 void cpu_run(void);
 
 /* 初始化CPU */

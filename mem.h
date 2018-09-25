@@ -22,7 +22,7 @@
  */
 
 #define MEM_SIZE        0x10000
-#define DISPLAY_SIZE     0x1000
+#define DISPLAY_SIZE    0x1000
 #define DISPLAY_BEGIN   0x1000
 #define BIOS_SIZE       0x2000
 #define BIOS_BEGIN      0x2000
@@ -37,6 +37,16 @@ extern cpu_t cpu;
 extern uint8_t low;
 extern uint8_t high;
 
+#define JMP_TO_ADDR(low, high) \
+do { \
+    cpu.pc = ( (high << 8) + low ) - 1; \
+} while(0); // See also: c8vm.c cpu_run()
+
+#define JMP_TO_ADDR_DIRECT(addr) \
+do { \
+    cpu.pc = addr - 1; \
+} while(0);
+
 #define PUSH_PC_TO_STACK(cpu, mem) \
 do { \
     mem[STACK_BEGIN + cpu.sp] = (uint8_t)( (cpu.pc & 0x0F00) >> 8 ); \
@@ -49,12 +59,6 @@ do { \
     high = ( mem[STACK_BEGIN + --cpu.sp] & 0x0F00 ) >> 8; \
     cpu.pc = (high << 8) + low; \
 } while (0);
-
-#define JMP_TO_ADDR(low, high) \
-do { \
-    cpu.pc = (high << 8) + low; \
-    cpu.pc--; \
-} while(0);
 
 void mem_init(void);
 

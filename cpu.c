@@ -35,7 +35,7 @@ void cpu_init(void)
 uint8_t low = 0;
 uint8_t high = 0;
 uint8_t zp_addr = 0;
-uint8_t intr_idx = 0; // 中断向量指针
+uint8_t intr_addr = 0; // 中断向量指针
 
 void i00() {
     // NOP, Do Nothing.
@@ -43,11 +43,9 @@ void i00() {
 
 void i01() {
     // INT, IMM
-    intr_idx = mem[++cpu.pc];
+    intr_addr = mem[++cpu.pc];
     PUSH_PC_TO_STACK(cpu, mem);
-    low = mem[intr_idx];
-    high = mem[++intr_idx];
-    JMP_TO_ADDR(low, high);
+    JMP_TO_ADDR_DIRECT(intr_addr * GET_INTR_SIZE(INTR_NUM));
 }
 
 /* 基础跳转操作指令 */
@@ -151,7 +149,6 @@ void i11() {
 void i12() {
     // CMP, 保留
 }
-
 
 void cpu_run(void)
 {
