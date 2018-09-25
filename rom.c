@@ -29,6 +29,7 @@ bool load_rom(mem_t *mem, const char *filename)
 {
     FILE *fp = NULL;
     if ( (fp = fopen(filename, "r")) == NULL) {
+        DEBUG("reason: cannot open file <%s>!\n", filename);
         return false;
     }
 
@@ -36,6 +37,7 @@ bool load_rom(mem_t *mem, const char *filename)
     fread(&header_buf, sizeof(rom_header_t), 1, fp);
 
     if ( check_rom(&header_buf) == false) {
+        DEBUG("reason: cannot header error!\n", NULL);
         fclose(fp);
         return false;
     }

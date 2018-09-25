@@ -13,19 +13,6 @@
 #define VF (1<<2)
 #define ZF (1<<7)
 
-#define PUSH_PC_TO_STACK(cpu, mem) \
-do { \
-    mem[STACK_BEGIN + cpu.sp] = (uint8_t)( (cpu.pc & 0x0F00) >> 8 ); \
-    mem[STACK_BEGIN + ++cpu.sp] = (uint8_t)(cpu.pc & 0x00FF); \
-} while (0);
-
-#define  POP_PC_FROM_STACK(cpu, mem) \
-do { \
-    low = mem[STACK_BEGIN + cpu.sp]; \
-    high = ( mem[STACK_BEGIN + --cpu.sp] & 0x0F00 ) >> 8; \
-    cpu.pc = (high << 8) + low; \
-} while (0);
-
 typedef struct cpu_t {
     bool active;
     uint8_t  rx; // x寄存器
@@ -35,11 +22,9 @@ typedef struct cpu_t {
     uint16_t pc; // 程序计数器
 } cpu_t;
 
-
 void cpu_run(void);
 
 /* 初始化CPU */
 void cpu_init(void);
-
 
 #endif //C8VM_CPU_H
